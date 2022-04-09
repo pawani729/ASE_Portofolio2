@@ -58,7 +58,6 @@ public class PictureFrame {
     void drawDigitGivenCentre(Graphics g, int x, int y, int diameter, int n) {
       int radius = diameter / 2;
       g.setColor(Color.BLACK);
-      // g.drawOval(x - radius, y - radius, diameter, diameter);
       FontMetrics fm = g.getFontMetrics();
       String txt = Integer.toString(n);
       g.drawString(txt, x - fm.stringWidth(txt) / 2, y + fm.getMaxAscent() / 2);
@@ -68,7 +67,6 @@ public class PictureFrame {
         Color c) {
       int radius = diameter / 2;
       g.setColor(c);
-      // g.drawOval(x - radius, y - radius, diameter, diameter);
       FontMetrics fm = g.getFontMetrics();
       String txt = Integer.toString(n);
       g.drawString(txt, x - fm.stringWidth(txt) / 2, y + fm.getMaxAscent() / 2);
@@ -89,16 +87,6 @@ public class PictureFrame {
       g.setColor(Color.YELLOW);
       g.fillRect(0, 0, getWidth(), getHeight());
 
-      // numbaz(g);
-      //
-      // if (master!=null && master.orig != null) {
-      // drawRoll(g, master.orig);
-      // }
-      // if (reroll != null) {
-      // drawReroll(g, reroll);
-      // }
-      //
-      // drawGrid(g);
       if (master.mode == 1) {
         drawGridLines(g);
         drawHeadings(g);
