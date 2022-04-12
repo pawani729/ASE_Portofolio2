@@ -467,24 +467,24 @@ public class Aardvark {
               System.out
                   .println("Problems placing the domino with that position and direction");
             } else {
-              // find which domino this could be
+              //find which domino this could be
               Domino d = findGuessByLH(grid[y][x], grid[y2][x2]);
               if (d == null) {
                 System.out.println("There is no such domino");
                 break;
               }
-              // check if the domino has not already been placed
+              //check if the domino has not already been placed
               if (d.placed) {
                 System.out.println("That domino has already been placed :");
                 System.out.println(d);
                 break;
               }
-              // check guessgrid to make sure the space is vacant
+              //check guessgrid to make sure the space is vacant
               if (gg[y][x] != 9 || gg[y2][x2] != 9) {
                 System.out.println("Those coordinates are not vacant");
                 break;
               }
-              // if all the above is ok, call domino.place and updateGuessGrid
+              //if all the above is okay, call domino.place and updateGuessGrid
               gg[y][x] = grid[y][x];
               gg[y2][x2] = grid[y2][x2];
               if (grid[y][x] == d.high && grid[y2][x2] == d.low) {
@@ -745,8 +745,8 @@ public class Aardvark {
         File f = new File("score.txt");
         if (!(f.exists() && f.isFile() && f.canRead())) {
           System.out.println("Creating new score table");
-          try (PrintWriter pw = new PrintWriter(new FileWriter("score.txt", true))){
-            String n = playerName.replaceAll(",", "_");
+          try {
+            PrintWriter pw = new PrintWriter(new FileWriter("score.txt", true));
             pw.print("Hugh Jass");
             pw.print(",");
             pw.print(1500);
@@ -822,7 +822,8 @@ public class Aardvark {
   }
 
   private void recordTheScore() {
-    try (PrintWriter pw = new PrintWriter(new FileWriter("score.txt", true))){
+    try {
+      PrintWriter pw = new PrintWriter(new FileWriter("score.txt", true));
       String n = playerName.replaceAll(",", "_");
       pw.print(n);
       pw.print(",");
@@ -830,6 +831,7 @@ public class Aardvark {
       pw.print(",");
       pw.println(System.currentTimeMillis());
       pw.flush();
+      pw.close();
     } catch (Exception e) {
       System.out.println("Something went wrong saving scores");
     }
