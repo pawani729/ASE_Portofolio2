@@ -758,6 +758,7 @@ public class Aardvark {
             pw.print(",");
             pw.println(1281625395123L);
             pw.flush();
+            pw.close();
           } catch (Exception e) {
             System.out.println("Something went wrong saving scores");
           }
