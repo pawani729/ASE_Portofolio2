@@ -1,4 +1,3 @@
-
 public class Domino implements Comparable<Domino> {
   public int high;
   public int low;
@@ -23,7 +22,7 @@ public class Domino implements Comparable<Domino> {
   }
 
   public String toString() {
-    StringBuffer result = new StringBuffer();
+    final StringBuffer result = new StringBuffer();
     result.append("[");
     result.append(Integer.toString(high));
     result.append(Integer.toString(low));
@@ -48,11 +47,11 @@ public class Domino implements Comparable<Domino> {
   /** turn the domino around 180 degrees clockwise*/
   
   public void invert() {
-    int tx = hx;
+    final int tx = hx;
     hx = lx;
     lx = tx;
     
-    int ty = hy;
+    final int ty = hy;
     hy = ly;
     ly = ty;    
   }
@@ -61,7 +60,7 @@ public class Domino implements Comparable<Domino> {
     return hy==ly;
   }
 
-
+  
   public int compareTo(Domino arg0) {
     if(this.high < arg0.high){
       return 1;
