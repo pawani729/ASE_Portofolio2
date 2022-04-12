@@ -12,7 +12,7 @@ public class Domino implements Comparable<Domino> {
     this.high = high;
     this.low = low;
   }
-  
+
   public void place(int hx, int hy, int lx, int ly) {
     this.hx = hx;
     this.hy = hy;
@@ -21,6 +21,7 @@ public class Domino implements Comparable<Domino> {
     placed = true;
   }
 
+  @Override
   public String toString() {
     final StringBuffer result = new StringBuffer();
     result.append("[");
@@ -44,8 +45,7 @@ public class Domino implements Comparable<Domino> {
     return result.toString();
   }
 
-  /** turn the domino around 180 degrees clockwise*/
-  
+  /** turn the domino around 180 degrees clockwise*/  
   public void invert() {
     final int tx = hx;
     hx = lx;
@@ -60,7 +60,7 @@ public class Domino implements Comparable<Domino> {
     return hy==ly;
   }
 
-  
+  @Override
   public int compareTo(Domino arg0) {
     if(this.high < arg0.high){
       return 1;
