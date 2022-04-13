@@ -166,13 +166,13 @@ public class Aardvark {
   }
 
   private void tryToRotateDominoAt(int x, int y) {
-    Domino d = findDominoAt(x, y);
+    Domino d = findDominoAtAndGuessAt(x, y);
     if (thisIsTopLeftOfDomino(x, y, d)) {
       if (d.ishl()) {
         boolean weFancyARotation = Math.random() < 0.5;
         if (weFancyARotation) {
           if (theCellBelowIsTopLeftOfHorizontalDomino(x, y)) {
-            Domino e = findDominoAt(x, y + 1);
+            Domino e = findDominoAtAndGuessAt(x, y + 1);
             e.hx = x;
             e.lx = x;
             d.hx = x + 1;
@@ -187,7 +187,7 @@ public class Aardvark {
         boolean weFancyARotation = Math.random() < 0.5;
         if (weFancyARotation) {
           if (theCellToTheRightIsTopLeftOfVerticalDomino(x, y)) {
-            Domino e = findDominoAt(x + 1, y);
+            Domino e = findDominoAtAndGuessAt(x + 1, y);
             e.hx = x;
             e.lx = x + 1;
             d.hx = x;
@@ -204,12 +204,12 @@ public class Aardvark {
   }
 
   private boolean theCellToTheRightIsTopLeftOfVerticalDomino(int x, int y) {
-    Domino e = findDominoAt(x + 1, y);
+    Domino e = findDominoAtAndGuessAt(x + 1, y);
     return thisIsTopLeftOfDomino(x + 1, y, e) && !e.ishl();
   }
 
   private boolean theCellBelowIsTopLeftOfHorizontalDomino(int x, int y) {
-    Domino e = findDominoAt(x, y + 1);
+    Domino e = findDominoAtAndGuessAt(x, y + 1);
     return thisIsTopLeftOfDomino(x, y + 1, e) && e.ishl();
   }
 
@@ -217,16 +217,7 @@ public class Aardvark {
     return (x == Math.min(d.lx, d.hx)) && (y == Math.min(d.ly, d.hy));
   }
 
-  private Domino findDominoAt(int x, int y) {
-    for (Domino d : _d) {
-      if ((d.lx == x && d.ly == y) || (d.hx == x && d.hy == y)) {
-        return d;
-      }
-    }
-    return null;
-  }
-
-  private Domino findGuessAt(int x, int y) {
+  private Domino findDominoAtAndGuessAt(int x, int y) {
     for (Domino d : _g) {
       if ((d.lx == x && d.ly == y) || (d.hx == x && d.hy == y)) {
         return d;
@@ -235,16 +226,7 @@ public class Aardvark {
     return null;
   }
 
-  private Domino findGuessByLH(int x, int y) {
-    for (Domino d : _g) {
-      if ((d.low == x && d.high == y) || (d.high == x && d.low == y)) {
-        return d;
-      }
-    }
-    return null;
-  }
-
-  private Domino findDominoByLH(int x, int y) {
+  private Domino findGuessByLHAndDominoByLH(int x, int y) {
     for (Domino d : _d) {
       if ((d.low == x && d.high == y) || (d.high == x && d.low == y)) {
         return d;
@@ -468,7 +450,7 @@ public class Aardvark {
                   .println("Problems placing the domino with that position and direction");
             } else {
               //find which domino this could be
-              Domino d = findGuessByLH(grid[y][x], grid[y2][x2]);
+              Domino d = findGuessByLHAndDominoByLH(grid[y][x], grid[y2][x2]);
               if (d == null) {
                 System.out.println("There is no such domino");
                 break;
@@ -522,7 +504,7 @@ public class Aardvark {
             }
             x13--;
             y13--;
-            Domino lkj = findGuessAt(x13, y13);
+            Domino lkj = findDominoAtAndGuessAt(x13, y13);
             if (lkj == null) {
               System.out.println("Couln't find a domino there");
             } else {
@@ -614,7 +596,7 @@ public class Aardvark {
                   x5 = -7;
                 }
               }
-              Domino dd = findDominoByLH(x5, x4);
+              Domino dd = findGuessByLHAndDominoByLH(x5, x4);
               System.out.println(dd);
 
               break;
@@ -643,7 +625,7 @@ public class Aardvark {
               }
               x3--;
               y3--;
-              Domino lkj2 = findDominoAt(x3, y3);
+              Domino lkj2 = findDominoAtAndGuessAt(x3, y3);
               System.out.println(lkj2);
               break;
             case 3: {
@@ -651,8 +633,8 @@ public class Aardvark {
               HashMap<Domino, List<Location>> map = new HashMap<Domino, List<Location>>();
               for (int r = 0; r < 6; r++) {
                 for (int c = 0; c < 7; c++) {
-                  Domino hd = findGuessByLH(grid[r][c], grid[r][c + 1]);
-                  Domino vd = findGuessByLH(grid[r][c], grid[r + 1][c]);
+                  Domino hd = findGuessByLHAndDominoByLH(grid[r][c], grid[r][c + 1]);
+                  Domino vd = findGuessByLHAndDominoByLH(grid[r][c], grid[r + 1][c]);
                   List<Location> l = map.get(hd);
                   if (l == null) {
                     l = new LinkedList<Location>();
@@ -683,8 +665,8 @@ public class Aardvark {
               HashMap<Domino, List<Location>> map = new HashMap<Domino, List<Location>>();
               for (int r = 0; r < 6; r++) {
                 for (int c = 0; c < 7; c++) {
-                  Domino hd = findGuessByLH(grid[r][c], grid[r][c + 1]);
-                  Domino vd = findGuessByLH(grid[r][c], grid[r + 1][c]);
+                  Domino hd = findGuessByLHAndDominoByLH(grid[r][c], grid[r][c + 1]);
+                  Domino vd = findGuessByLHAndDominoByLH(grid[r][c], grid[r + 1][c]);
                   List<Location> l = map.get(hd);
                   if (l == null) {
                     l = new LinkedList<Location>();
