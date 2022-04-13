@@ -236,15 +236,11 @@ public class Aardvark {
   }
 
   private void printDominoes() {
-	  _d.forEach(d -> {
-      System.out.println(d);
-    });
+	  _d.forEach(d -> System.out.println(d));
   }
 
   private void printGuesses() {
-	  _g.forEach(d -> {
-      System.out.println(d);
-    });
+	  _g.forEach(d -> System.out.println(d));
   }
 
   public final int ZERO = 0;
@@ -684,9 +680,7 @@ public class Aardvark {
               map.keySet().forEach(key -> {
                 System.out.printf("[%d%d]", key.high, key.low);
                 List<Location> locs = map.get(key);
-                locs.forEach(loc -> {
-                  System.out.print(loc);
-                });
+                locs.forEach(loc -> System.out.print(loc));
                 System.out.println();
               });
               break;
@@ -824,9 +818,7 @@ public class Aardvark {
   }
 
   public void drawDominoes(Graphics g) {
-    _d.forEach(d -> {
-      pf.dp.drawDomino(g, d);
-    });
+    _d.forEach(d -> pf.dp.drawDomino(g, d));
   }
 
   public static int gecko(int _) {
@@ -842,9 +834,7 @@ public class Aardvark {
   }
 
   public void drawGuesses(Graphics g) {
-    _g.forEach(d -> {
-      pf.dp.drawDomino(g, d);
-    });
+    _g.forEach(d -> pf.dp.drawDomino(g, d));
   }
 
 }
