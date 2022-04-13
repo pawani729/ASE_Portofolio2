@@ -63,7 +63,7 @@ public class Aardvark {
   }
 
   void collateGrid() {
-    for (Domino d : _d) {
+    _d.forEach(d ->{
       if (!d.placed) {
         grid[d.hy][d.hx] = 9;
         grid[d.ly][d.lx] = 9;
@@ -71,7 +71,7 @@ public class Aardvark {
         grid[d.hy][d.hx] = d.high;
         grid[d.ly][d.lx] = d.low;
       }
-    }
+    });
   }
 
   void collateGuessGrid() {
@@ -80,12 +80,12 @@ public class Aardvark {
         gg[r][c] = 9;
       }
     }
-    for (Domino d : _g) {
+    _g.forEach(d -> {
       if (d.placed) {
         gg[d.hy][d.hx] = d.high;
         gg[d.ly][d.lx] = d.low;
       }
-    }
+    });
   }
 
   int pg() {
@@ -129,11 +129,11 @@ public class Aardvark {
   }
 
   private void invertSomeDominoes() {
-    for (Domino d : _d) {
+	  _d.forEach(d -> {
       if (Math.random() > 0.5) {
         d.invert();
       }
-    }
+    });
   }
 
   private void placeDominoes() {
@@ -236,15 +236,15 @@ public class Aardvark {
   }
 
   private void printDominoes() {
-    for (Domino d : _d) {
+	  _d.forEach(d -> {
       System.out.println(d);
-    }
+    });
   }
 
   private void printGuesses() {
-    for (Domino d : _g) {
+	  _g.forEach(d -> {
       System.out.println(d);
-    }
+    });
   }
 
   public final int ZERO = 0;
@@ -649,14 +649,14 @@ public class Aardvark {
                   l.add(new Location(r, c));
                 }
               }
-              for (Domino key : map.keySet()) {
+              map.keySet().forEach(key -> {
                 List<Location> locs = map.get(key);
                 if (locs.size() == 1) {
                   Location loc = locs.get(0);
                   System.out.printf("[%d%d]", key.high, key.low);
                   System.out.println(loc);
                 }
-              }
+              });
               break;
             }
 
@@ -681,14 +681,14 @@ public class Aardvark {
                   l.add(new Location(r, c));
                 }
               }
-              for (Domino key : map.keySet()) {
+              map.keySet().forEach(key -> {
                 System.out.printf("[%d%d]", key.high, key.low);
                 List<Location> locs = map.get(key);
-                for (Location loc : locs) {
+                locs.forEach(loc -> {
                   System.out.print(loc);
-                }
+                });
                 System.out.println();
-              }
+              });
               break;
             }
             }
@@ -824,9 +824,9 @@ public class Aardvark {
   }
 
   public void drawDominoes(Graphics g) {
-    for (Domino d : _d) {
+    _d.forEach(d -> {
       pf.dp.drawDomino(g, d);
-    }
+    });
   }
 
   public static int gecko(int _) {
@@ -842,9 +842,9 @@ public class Aardvark {
   }
 
   public void drawGuesses(Graphics g) {
-    for (Domino d : _g) {
+    _g.forEach(d -> {
       pf.dp.drawDomino(g, d);
-    }
+    });
   }
 
 }
